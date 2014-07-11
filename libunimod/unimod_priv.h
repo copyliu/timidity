@@ -56,7 +56,7 @@ extern "C"
 #define _mm_errno ML_errno
 
 /*========== Memory allocation */
-
+#undef _mm_malloc
 extern void *_mm_malloc (size_t);
 extern void *_mm_calloc (size_t, size_t);
 #define _mm_free(p) do { if (p) free(p); p = NULL; } while(0)

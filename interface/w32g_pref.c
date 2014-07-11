@@ -67,7 +67,7 @@
 #endif
 
 /* TiMidity Win32GUI preference / PropertySheet */
-
+#define DWL_MSGRESULT 0
 #ifndef IA_W32G_SYN
 extern void w32g_restart(void);
 #endif
