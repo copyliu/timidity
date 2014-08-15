@@ -21,8 +21,8 @@
 #ifndef __W32G2_PREF_H__
 #define __W32G2_PREF_H__
 
-#ifndef 
-#define DWL_MSGRESULT 0
+#ifndef DWL_MSGRESULT
+#define DWL_MSGRESULT 0 //for mingw64
 #endif /* DWL_MSGRESULT */
 
 extern volatile int PrefWndDoing;

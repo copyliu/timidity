@@ -111,7 +111,7 @@ void LoadIniFile(SETTING_PLAYER *sp,  SETTING_TIMIDITY *st)
     IniGetKeyInt(INI_SEC_PLAYER,"AutoloadPlaylist",&(sp->AutoloadPlaylist));
     IniGetKeyInt(INI_SEC_PLAYER,"AutosavePlaylist",&(sp->AutosavePlaylist));
     IniGetKeyInt(INI_SEC_PLAYER,"PosSizeSave",&(sp->PosSizeSave));
-
+    IniGetKeyInt(INI_SEC_PLAYER,"CodePage",&(sp->CodePage));
     /* [TIMIDITY] */
     IniGetKeyInt32(INI_SEC_TIMIDITY,"amplification",&(st->amplification));
     IniGetKeyInt(INI_SEC_TIMIDITY,"antialiasing_allowed",&(st->antialiasing_allowed));

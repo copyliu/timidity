@@ -231,6 +231,9 @@ char *DocFileExt;
 
 int AutoloadPlaylist = 0;
 int AutosavePlaylist = 0;
+
+int DispCodePage=932;
+
 int volatile save_playlist_once_before_exit_flag = 1;
 
 static volatile int w32g_wait_for_init;
@@ -269,7 +272,7 @@ int w32gSecondTiMidity(int opt, int argc, char **argv);
 int w32gSecondTiMidityExit(void);
 int SecondMode = 0;
 void FirstLoadIniFile(void);
-
+char* TransCodePage(char *message);
 #ifndef WIN32GCC
 extern void CmdLineToArgv(LPSTR lpCmdLine, int *argc, CHAR ***argv);
 extern int win_main(int argc, char **argv); /* timidity.c */
@@ -3562,21 +3565,36 @@ void MPanelMessageInit(void)
 // mode 2: sec 秒の間に messege を表示。ポインタを左から右に移す。ポインタを境界に色を変える。
 void MPanelMessageAdd(char *message, int msec, int mode)
 {
+	char *message_trns=TransCodePage(message);
 	if ( MPanelMessageData.nextmode >= 0 ) {
 		MPanelMessageNext();
-		strncpy(MPanelMessageData.nextbuff,message,sizeof(MPanelMessageData.nextbuff)-1);
+		strncpy(MPanelMessageData.nextbuff,message_trns,sizeof(MPanelMessageData.nextbuff)-1);
 		MPanelMessageData.nextmode = mode;
 		MPanelMessageData.nextmsec = msec;
 	} else if ( MPanelMessageData.curmode >= 0 ){
-		strncpy(MPanelMessageData.nextbuff,message,sizeof(MPanelMessageData.nextbuff)-1);
+		strncpy(MPanelMessageData.nextbuff,message_trns,sizeof(MPanelMessageData.nextbuff)-1);
 		MPanelMessageData.nextmode = mode;
 		MPanelMessageData.nextmsec = msec;
 	} else {
-		strncpy(MPanelMessageData.nextbuff,message,sizeof(MPanelMessageData.nextbuff)-1);
+		strncpy(MPanelMessageData.nextbuff,message_trns,sizeof(MPanelMessageData.nextbuff)-1);
 		MPanelMessageData.nextmode = mode;
 		MPanelMessageData.nextmsec = msec;
 		MPanelMessageNext();
 	}
+}
+
+char* TransCodePage(char *message){
+	char *message_trns=NULL;
+		wchar_t *wlocal=NULL;
+	int iLen=0;
+	iLen=MultiByteToWideChar (DispCodePage, 0, message, -1, NULL,0) ; 
+	wlocal=(wchar_t *)calloc(iLen,sizeof(wchar_t));
+	MultiByteToWideChar(DispCodePage,0,message,-1,wlocal,iLen);
+	
+	iLen=WideCharToMultiByte (CP_ACP, 0, (PWSTR) wlocal, -1, NULL,0, NULL, NULL) ; 
+	message_trns=(char *)calloc(1024,sizeof(char));
+	WideCharToMultiByte(CP_ACP,0,(PWSTR) wlocal,-1,message_trns,iLen,NULL,NULL);
+	return message_trns;
 }
 int MPanelMessageHaveMesssage(void)
 {
@@ -4667,7 +4685,8 @@ void w32g_ctle_play_start(int sec)
     /* Now, ready to get the title of MIDI */
     if((title = get_midi_title(MPanel.File)) != NULL)
     {
-	strncpy(MPanel.Title, title, MP_TITLE_MAX);
+	char* local_title=TransCodePage(title);
+	strncpy(MPanel.Title, local_title, MP_TITLE_MAX);
 	MPanel.UpdateFlag |= MP_UPDATE_TITLE;
     }
     MPanelUpdate();

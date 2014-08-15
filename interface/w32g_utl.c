@@ -78,7 +78,7 @@ extern int AutoloadPlaylist;
 extern int AutosavePlaylist;
 char DefaultPlaylistName[] = "default.pls";
 char DefaultPlaylistPath[1024];
-
+extern int DispCodePage;
 extern int PosSizeSave;
 
 //*****************************************************************************/
@@ -394,6 +394,7 @@ ApplySettingPlayer(SETTING_PLAYER *sp)
   AutoloadPlaylist = sp->AutoloadPlaylist;
   AutosavePlaylist = sp->AutosavePlaylist;
   PosSizeSave = sp->PosSizeSave;
+  DispCodePage=sp->CodePage;
 }
 
 void
@@ -461,6 +462,7 @@ SaveSettingPlayer(SETTING_PLAYER *sp)
   sp->AutoloadPlaylist = AutoloadPlaylist;
   sp->AutosavePlaylist = AutosavePlaylist;
   sp->PosSizeSave = PosSizeSave;
+  sp->CodePage=DispCodePage;
 }
 
 extern int set_play_mode(char *cp);
@@ -603,7 +605,7 @@ ApplySettingTiMidity(SETTING_TIMIDITY *st)
 	opt_amp_compensation = st->opt_amp_compensation;
     data_block_bits = st->data_block_bits;
     data_block_num = st->data_block_num;
-
+    
 #ifdef IA_W32G_SYN
 	for ( i = 0; i < MAX_PORT; i ++ ) {
 		w32g_syn_id_port[i] = st->SynIDPort[i];

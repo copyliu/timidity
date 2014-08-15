@@ -89,6 +89,7 @@ typedef struct SETTING_PLAYER_ {
   int AutosavePlaylist;
   int PosSizeSave;
   char DefaultPlaylistName[256];
+  int CodePage;
 // End.
 } SETTING_PLAYER;
 

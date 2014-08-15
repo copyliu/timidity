@@ -604,6 +604,9 @@ void w32_tracer_ctl_event(CtlEvent *e)
 		w32g_tracer_wnd.filename[1000] = '\0';
 		title = get_midi_title(w32g_tracer_wnd.filename);
 		if ( title == NULL ) title = w32g_tracer_wnd.filename;
+		else {
+			title=TransCodePage(title);
+		}
 		strcpy ( w32g_tracer_wnd.titlename, "  " );
 		strncat ( w32g_tracer_wnd.titlename, title, 1000 );
 		w32g_tracer_wnd.titlename[1000] = '\0';
