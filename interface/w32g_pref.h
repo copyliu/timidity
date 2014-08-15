@@ -21,6 +21,10 @@
 #ifndef __W32G2_PREF_H__
 #define __W32G2_PREF_H__
 
+#ifndef 
+#define DWL_MSGRESULT 0
+#endif /* DWL_MSGRESULT */
+
 extern volatile int PrefWndDoing;
 void PrefWndCreate(HWND hwnd);
 
