@@ -2891,8 +2891,8 @@ static void MPanelInit(HWND hwnd)
 	strcpy(MPanel.Font,"Arial Bold");
 	switch(PlayerLanguage){
    case LANGUAGE_ENGLISH:
-		strcpy(MPanel.FontLang,"Times New Roman");
-		strcpy(MPanel.FontLangFixed,"Times New Roman");
+		strcpy(MPanel.FontLang,"NSimSun");
+		strcpy(MPanel.FontLangFixed,"SimSun");
      	break;
 	default:
 	case LANGUAGE_JAPANESE:
@@ -3756,7 +3756,7 @@ void MPanelMessageUpdate(void)
 	case 4:
 		if ( MPanelMessageData.prevtime == -1 ){
 			MPanelMessageData.prevtime = curtime;
-#define MPANELMESSAGE_MODE2_SLEEPMSEC 1000
+#define MPANELMESSAGE_MODE2_SLEEPMSEC 100
 			if ( MPanelMessageData.curmsec < MPANELMESSAGE_MODE2_SLEEPMSEC * 2 ) {
 				MPanelMessageData.curmsec = MPANELMESSAGE_MODE2_SLEEPMSEC * 2;
 			}
