@@ -2813,7 +2813,7 @@ static void note_on_prescan(MidiEvent *ev)
 	    channel[ch].portamento == 0)
 	{
 		int nv;
-		int vlist[32];
+		int vlist[max_voices];
 		Voice *vp;
 
 		nv = find_samples(ev, vlist);
@@ -2834,7 +2834,7 @@ static void note_on_prescan(MidiEvent *ev)
 static void note_on(MidiEvent *e)
 {
     int i, nv, v, ch, note;
-    int vlist[32];
+    int vlist[max_voices];
     int vid;
 	int32 random_delay = 0;
 
