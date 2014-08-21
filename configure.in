@@ -938,24 +938,6 @@ AC_ARG_WITH(default-output,
     AC_MSG_WARN([--with-default-output=$withval: audio is not enabled])
   fi])
 
-AC_ARG_WITH(mingw64,
-   AC_HELP_STRING([--with-mingw64],
-                  [Complier is mingw64]),
-   [],
-   [with_mingw64="no"])
-
-if test "x$with_mingw64" = "xyes"
-then
-   mingw64="yes"
-else
-   mingw64="no"
-fi
-
-if test "x$mingw64" = "xyes"
-then
-  CFLAGS="$CFLAGS -D _AMD64_ "
-fi
-  
 dnl compatibility matters.
 dnl AC_ARG_ENABLE(esd,
 dnl   [  --enable-esd         EsounD (Obsoleted.  Use --enable-audio=esd)],
